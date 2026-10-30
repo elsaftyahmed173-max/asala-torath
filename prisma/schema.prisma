@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model SiteSettings {
+  id            Int      @id @default(autoincrement())
+  siteName      String   @default("أصالة التراث المصري")
+  slogan        String   @default("عاشق ومعشوق — فن يدوي تم تصنيعه بحب من القلب")
+  description   String   @default("أفخم منتجات الصدف الطبيعي المصري والأرابيسك اليدوي — توصيل من الكويت إلى دول الخليج وجميع أنحاء العالم")
+  whatsapp     String   @default("96551118069")
+  email        String   @default("asalat.al.torath.Kw.Eg@GMAIL.COM")
+  instagram    String   @default("https://www.instagram.com/asalat.al.torath.kw.eg")
+  facebook     String   @default("https://www.facebook.com/profile.php?id=61595434109686")
+  heroTitle    String   @default("قطعة من مصر، وحكاية في بيتك.")
+  heroSubtitle String   @default("من بريق الصدف الطبيعي ودِفء الخشب، نصنع قطعًا تحمل روح التراث المصري. تفاصيل تُنسج باليد، لتبقى معك عمرًا.")
+  aboutTitle   String   @default("ليست مجرد قطعة أثاث. إنها ذاكرة من الجمال.")
+  aboutText    String   @default("في كل قطعة، صبر حرفي وحكاية توارثتها الأيدي. نختار الصدف الطبيعي وخشب الزان، ونطعّمهما بنقوش تستلهم الفن الإسلامي والفرعوني والأرابيسك المصري.")
+  shippingTitle String  @default("من الكويت، إلى حيث تكون")
+  shippingText  String  @default("نؤكد معك تفاصيل الشحن وتكلفته وموعد الوصول على واتساب قبل تأكيد الطلب.")
+  primaryColor  String  @default("#2E0C10")
+  darkColor     String  @default("#1A0709")
+  ivoryColor    String  @default("#F7F1EA")
+  goldColor     String  @default("#D7B26A")
+  logoUrl       String?
+  heroImageUrl  String?
+  storyImageUrl String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  slug     String    @unique
+  products Product[]
+}
+
+model Product {
+  id               Int      @id @default(autoincrement())
+  name             String
+  slug             String   @unique
+  price            Int
+  categoryId       Int
+  category         Category @relation(fields: [categoryId], references: [id])
+  description      String
+  shortDescription String
+  imageUrl         String?
+  galleryImages    String?
+  isAvailable      Boolean  @default(true)
+  isFeatured       Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Order {
+  id           Int      @id @default(autoincrement())
+  customerName String
+  phone        String
+  email        String?
+  notes        String?
+  status       String   @default("جديد")
+  productName  String
+  total        Int
+  createdAt    DateTime @default(now())
+}
+
+model AdminUser {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+}

@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #2e0c10;
+  --dark: #1a0709;
+  --ivory: #f7f1ea;
+  --gold: #d7b26a;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #f7f1ea;
+  color: #1a0709;
+  font-family: Arial, sans-serif;
+  direction: rtl;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+input,
+textarea,
+select,
+button {
+  font: inherit;
+}
